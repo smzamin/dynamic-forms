@@ -1,0 +1,57 @@
+<div class="preview" *ngIf="fields.length > 0">
+  <h2>Form Preview</h2>
+  <form (ngSubmit)="onSubmit()" #previewForm="ngForm">
+    <div *ngFor="let field of fields" class="form-group">
+      <label>
+        {{ field.label }}
+        <span *ngIf="field.required" class="required">*</span>
+      </label>
+
+      <!-- Text, Number, Email inputs -->
+      <input
+        *ngIf="['text', 'number', 'email'].includes(field.type)"
+        [type]="field.type"
+        [(ngModel)]="field.value"
+        [name]="field.id"
+        [required]="field.required"
+      />
+
+      <!-- Checkbox -->
+      <div *ngIf="field.type === 'checkbox'" class="checkbox-group">
+        <div *ngFor="let option of field.options" class="form-group">
+          <label>
+            <input
+              type="checkbox"
+              [name]="field.id"
+              [(ngModel)]="field.value[option]"
+            />
+            {{ option }}
+          </label>
+        </div>
+      </div>
+
+      <!-- Radio -->
+      <div *ngIf="field.type === 'radio'" class="radio-group">
+        <div *ngFor="let option of field.options">
+          <label>
+            <input
+              type="radio"
+              [name]="field.id"
+              [value]="option"
+              [(ngModel)]="field.value"
+              [required]="field.required"
+            />
+            {{ option }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-actions">
+      <button type="submit">Submit</button>
+      <button type="button" class="secondary" (click)="export.emit()">
+        Export Form
+      </button>
+    </div>
+  </form>
+</div>

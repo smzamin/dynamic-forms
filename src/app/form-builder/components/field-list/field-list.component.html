@@ -1,0 +1,24 @@
+<div class="field-list" cdkDropList (cdkDropListDropped)="onDrop($event)">
+  <h2>Form Fields</h2>
+  <div
+    *ngFor="let field of fields; let i = index"
+    class="field-item"
+    cdkDrag
+    [class.dragging]="isDragging === i"
+    (mousedown)="startDrag(i)"
+    (mouseup)="stopDrag()"
+  >
+    <div class="drag-handle">⋮⋮</div>
+    <div class="field-content">
+      <div>
+        <strong>{{ field.label }}</strong>
+        <span class="field-type">({{ field.type }})</span>
+        <span *ngIf="field.required" class="required">*</span>
+      </div>
+      <div class="field-options" *ngIf="field.options?.length">
+        Options: {{ field?.options?.join(', ') }}
+      </div>
+    </div>
+    <button class="remove-btn" (click)="removeField.emit(i)">Remove</button>
+  </div>
+</div>

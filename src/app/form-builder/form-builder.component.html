@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>Form Builder</h1>
+  
+  <app-field-creator
+    [showValidation]="showValidation"
+    (fieldCreated)="onFieldCreated($event)"
+  ></app-field-creator>
+
+  <app-field-list
+    [fields]="fields"
+    (removeField)="removeField($event)"
+    (reorderFields)="reorderFields($event)"
+  ></app-field-list>
+
+  <app-form-preview
+    [fields]="fields"
+    (submit)="submitForm()"
+    (export)="exportForm()"
+  ></app-form-preview>
+</div>
